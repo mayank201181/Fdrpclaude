@@ -138,6 +138,7 @@
     window.scrollTo(0, 0);
     if (name === 'guide') renderGuide();
     else if (name === 'practice') renderPractice();
+    else if (name === 'worksheet') renderWorksheet();
     else renderHome();
   }
 
@@ -403,6 +404,82 @@
       span.textContent = progress[q.id] === 'correct' ? '✓ solved' : progress[q.id] === 'partial' ? '~ partly' : '✗ try again';
       badgeHolder.appendChild(span);
     }
+  }
+
+  /* =========================================================
+     WORKSHEET (printable)
+     ========================================================= */
+  let wFilter = { topic: 'All', level: 'Advanced', answers: true };
+
+  function worksheetQuestions() {
+    return QUESTIONS.filter(q =>
+      (wFilter.topic === 'All' || q.topic === wFilter.topic) &&
+      (wFilter.level === 'All' || q.level === wFilter.level)
+    );
+  }
+
+  function renderWorksheet() {
+    const list = worksheetQuestions();
+    const setLabel = `${wFilter.level === 'All' ? 'All levels' : wFilter.level} · ${wFilter.topic === 'All' ? 'All topics' : wFilter.topic}`;
+
+    const questionsHtml = list.map((q, i) => `
+      <li class="ws-item">
+        <div class="ws-q"><span class="ws-qnum">${i + 1}.</span> ${q.question}</div>
+        <div class="ws-hint">💡 Hint: ${q.hint || ''}</div>
+        <div class="ws-working"><span>Working / answer:</span></div>
+      </li>`).join('');
+
+    const answersHtml = wFilter.answers ? `
+      <div class="ws-answers">
+        <h2>Model answers — ${setLabel}</h2>
+        <ol class="ws-answer-list">
+          ${list.map(q => `<li><div class="ws-a-q">${q.question}</div>${q.model}</li>`).join('')}
+        </ol>
+      </div>` : '';
+
+    appEl.innerHTML = `
+      <div class="ws-controls">
+        <h1 style="margin-top:0">Printable worksheet</h1>
+        <p class="lead">Pick a set, then print it or save it as a PDF to do on paper. Answers print on a separate page at the end.</p>
+        <div class="filters">
+          <div class="filter-group">
+            <label for="wTopic">Topic</label>
+            <select id="wTopic">${['All', ...TOPICS].map(t => opt(t, wFilter.topic)).join('')}</select>
+          </div>
+          <div class="filter-group">
+            <label for="wLevel">Level</label>
+            <select id="wLevel">${['All', ...LEVELS].map(l => opt(l, wFilter.level)).join('')}</select>
+          </div>
+          <div class="filter-group">
+            <label for="wAnswers">Answer sheet</label>
+            <select id="wAnswers">
+              <option value="yes" ${wFilter.answers ? 'selected' : ''}>Include answers</option>
+              <option value="no" ${!wFilter.answers ? 'selected' : ''}>Questions only</option>
+            </select>
+          </div>
+          <div class="filter-group" style="justify-content:flex-end">
+            <label>&nbsp;</label>
+            <button class="btn" id="wPrint">🖨️ Print / Save as PDF</button>
+          </div>
+        </div>
+        <p class="progress-line">${list.length} question${list.length === 1 ? '' : 's'} in this worksheet.</p>
+      </div>
+
+      <div class="worksheet">
+        <div class="ws-header">
+          <h1>Maths Worksheet</h1>
+          <p class="ws-meta">Name: _______________________   Date: ______________</p>
+          <p class="ws-set">${setLabel} · Fractions, Decimals, Ratios &amp; Percentages</p>
+        </div>
+        ${list.length ? `<ol class="ws-questions">${questionsHtml}</ol>` : '<p>No questions match this selection.</p>'}
+        ${answersHtml}
+      </div>
+    `;
+
+    document.getElementById('wTopic').addEventListener('change', e => { wFilter.topic = e.target.value; renderWorksheet(); });
+    document.getElementById('wLevel').addEventListener('change', e => { wFilter.level = e.target.value; renderWorksheet(); });
+    document.getElementById('wAnswers').addEventListener('change', e => { wFilter.answers = e.target.value === 'yes'; renderWorksheet(); });
+    document.getElementById('wPrint').addEventListener('click', () => window.print());
   }
 
   /* =========================================================

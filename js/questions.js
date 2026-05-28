@@ -500,7 +500,164 @@ const QUESTIONS = [
     question:'A shopkeeper buys apples at £2 per kg and wants to make a 25% profit. What should the selling price be, per kg?',
     hint:'Selling price = cost + 25% of cost = 125% of £2.',
     accept:['2.5','2.50'],
-    model:'<ol><li>25% of £2 = £0.50 (the profit).</li><li>Selling price = £2 + £0.50 = £2.50.</li></ol><p class="final">Answer: £2.50</p>' }
+    model:'<ol><li>25% of £2 = £0.50 (the profit).</li><li>Selling price = £2 + £0.50 = £2.50.</li></ol><p class="final">Answer: £2.50</p>' },
+
+  /* ---- Extra Advanced: reverse percentages (find the original / the whole) ---- */
+
+  { id:'A-PE-18', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A jacket is reduced by 30% in a sale and now costs £49. What was the original price?',
+    hint:'After 30% off, £49 is the 70% that is left. So £49 = 70% of the original.',
+    accept:['70'],
+    partial:[{value:'63.7', note:'Trap! You added 30% of £49. But £49 is only 70% of the original — divide by 0.7 instead.'}],
+    model:'<ol><li>£49 = 70% of the original.</li><li>1% = 49 ÷ 70 = £0.70, so 100% = £70.</li><li>Check: £70 − 30% (£21) = £49. ✓</li></ol><p class="final">Answer: £70</p>' },
+
+  { id:'A-PE-19', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A meal costs £54 in total, which includes a 20% service charge. What was the cost of the food BEFORE the service charge?',
+    hint:'£54 = food + 20% of food = 120% of the food price.',
+    accept:['45'],
+    model:'<ol><li>£54 = 120% of the food price.</li><li>1% = 54 ÷ 120 = £0.45, so 100% = £45.</li><li>Check: £45 + 20% (£9) = £54. ✓</li></ol><p class="final">Answer: £45</p>' },
+
+  { id:'A-PE-20', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A shop makes a 40% profit by selling a bag for £70. How much did the shop pay for the bag?',
+    hint:'£70 is the cost plus 40% profit = 140% of the cost.',
+    accept:['50'],
+    partial:[{value:'42', note:'Trap! You took 40% off £70. But £70 is 140% of the cost — divide by 1.4.'}],
+    model:'<ol><li>£70 = 140% of the cost.</li><li>1% = 70 ÷ 140 = £0.50, so 100% = £50.</li><li>Check: £50 + 40% (£20) = £70. ✓</li></ol><p class="final">Answer: £50</p>' },
+
+  { id:'A-PE-21', topic:'Percentages', level:'Advanced', type:'money',
+    question:'After spending 35% of her pocket money, Mia has £52 left. How much did she start with?',
+    hint:'If she spent 35%, the £52 left is the other 65%.',
+    accept:['80'],
+    model:'<ol><li>£52 = 65% of her money.</li><li>1% = 52 ÷ 65 = £0.80, so 100% = £80.</li></ol><p class="final">Answer: £80</p>' },
+
+  { id:'A-PE-22', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A car is now worth £9,600 after losing 20% of its value. What was it worth when it was new?',
+    hint:'Losing 20% leaves 80%. So £9,600 = 80% of the original value.',
+    accept:['12000','12,000'],
+    model:'<ol><li>£9,600 = 80% of the original.</li><li>1% = 9600 ÷ 80 = £120, so 100% = £12,000.</li></ol><p class="final">Answer: £12,000</p>' },
+
+  { id:'A-PE-23', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A price rose by 15% to £92. What was the price before the rise?',
+    hint:'£92 = 115% of the old price.',
+    accept:['80'],
+    model:'<ol><li>£92 = 115% of the old price.</li><li>1% = 92 ÷ 115 = £0.80, so 100% = £80.</li></ol><p class="final">Answer: £80</p>' },
+
+  { id:'A-PE-24', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A TV costs £363 after a 10% price increase. What was the price before?',
+    hint:'£363 = 110% of the old price. Divide by 1.1.',
+    accept:['330'],
+    model:'<ol><li>£363 = 110% of the old price.</li><li>1% = 363 ÷ 110 = £3.30, so 100% = £330.</li></ol><p class="final">Answer: £330</p>' },
+
+  { id:'A-PE-25', topic:'Percentages', level:'Advanced', type:'number',
+    question:'60% of a number is 45. What is the number?',
+    hint:'If 60% = 45, find 10% first (45 ÷ 6), then build up to 100%.',
+    accept:['75'],
+    model:'<ol><li>60% = 45, so 10% = 45 ÷ 6 = 7.5.</li><li>100% = 7.5 × 10 = 75.</li></ol><p class="final">Answer: 75</p>' },
+
+  { id:'A-PE-26', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A coat is reduced by a quarter (25%) and now costs £90. What was the original price?',
+    hint:'Reduced by 25% means £90 is the 75% that remains.',
+    accept:['120'],
+    model:'<ol><li>£90 = 75% of the original.</li><li>1% = 90 ÷ 75 = £1.20, so 100% = £120.</li><li>Check: £120 − 25% (£30) = £90. ✓</li></ol><p class="final">Answer: £120</p>' },
+
+  { id:'A-PE-27', topic:'Percentages', level:'Advanced', type:'money',
+    question:'After a 5% pay rise, a worker earns £21,000. What was the salary before the rise?',
+    hint:'£21,000 = 105% of the old salary.',
+    accept:['20000','20,000'],
+    model:'<ol><li>£21,000 = 105% of the old salary.</li><li>1% = 21,000 ÷ 105 = £200, so 100% = £20,000.</li></ol><p class="final">Answer: £20,000</p>' },
+
+  { id:'A-PE-28', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A bill comes to £150 including 20% VAT. How much of that is the VAT? (in £)',
+    hint:'First find the price before VAT (£150 = 120% of it), then the VAT is the difference.',
+    accept:['25'],
+    partial:[{value:'30', note:'£30 is 20% of £150, but VAT is 20% of the price BEFORE VAT (£125), not of the total.'}],
+    model:'<ol><li>Before VAT: £150 ÷ 1.2 = £125.</li><li>VAT = £150 − £125 = £25 (which is 20% of £125). ✓</li></ol><p class="final">Answer: £25</p>' },
+
+  { id:'A-PE-29', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A house lost 10% of its value and is now worth £180,000. What was it worth before?',
+    hint:'£180,000 = 90% of the old value.',
+    accept:['200000','200,000'],
+    model:'<ol><li>£180,000 = 90% of the value.</li><li>1% = 180,000 ÷ 90 = £2,000, so 100% = £200,000.</li></ol><p class="final">Answer: £200,000</p>' },
+
+  { id:'A-PE-30', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A jumper is sold for £33 with one third off. What was the original price?',
+    hint:'One third off means you pay two thirds. So £33 = 2/3 of the original.',
+    accept:['49.5','49.50'],
+    model:'<ol><li>£33 = 2/3 of the original, so 1/3 = £33 ÷ 2 = £16.50.</li><li>Whole = £16.50 × 3 = £49.50.</li></ol><p class="final">Answer: £49.50</p>' },
+
+  { id:'A-PE-31', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A train ticket costs £35 after a 25% increase. What was the original price?',
+    hint:'£35 = 125% of the original. Divide by 1.25.',
+    accept:['28'],
+    model:'<ol><li>£35 = 125% of the original.</li><li>1% = 35 ÷ 125 = £0.28, so 100% = £28.</li></ol><p class="final">Answer: £28</p>' },
+
+  { id:'A-PE-32', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A phone costs £480 in a sale after 20% off. What was the price before the sale?',
+    hint:'£480 = 80% of the original (the part you still pay).',
+    accept:['600'],
+    partial:[{value:'576', note:'Trap! You added 20% of £480. But £480 is 80% of the original — divide by 0.8.'}],
+    model:'<ol><li>£480 = 80% of the original.</li><li>1% = 480 ÷ 80 = £6, so 100% = £600.</li><li>Check: £600 − 20% (£120) = £480. ✓</li></ol><p class="final">Answer: £600</p>' },
+
+  { id:'A-PE-33', topic:'Percentages', level:'Advanced', type:'money',
+    question:'In a 30%-off sale, a customer saved £45 on a coat. What was the original price of the coat?',
+    hint:'The £45 saving IS the 30%. So 30% = £45 — find 100%.',
+    accept:['150'],
+    model:'<ol><li>30% = £45, so 10% = £15.</li><li>100% = £15 × 10 = £150.</li></ol><p class="final">Answer: £150</p>' },
+
+  { id:'A-PE-34', topic:'Percentages', level:'Advanced', type:'money',
+    question:'Rent is £900 after a 12.5% increase. What was the rent before?',
+    hint:'£900 = 112.5% of the old rent. Divide by 1.125.',
+    accept:['800'],
+    model:'<ol><li>£900 = 112.5% of the old rent.</li><li>Old rent = 900 ÷ 1.125 = £800.</li><li>Check: £800 + 12.5% (£100) = £900. ✓</li></ol><p class="final">Answer: £800</p>' },
+
+  { id:'A-PE-35', topic:'Percentages', level:'Advanced', type:'number',
+    question:'A number is decreased by 20% and the result is 64. What was the original number?',
+    hint:'64 = 80% of the original.',
+    accept:['80'],
+    model:'<ol><li>64 = 80% of the number.</li><li>1% = 64 ÷ 80 = 0.8, so 100% = 80.</li></ol><p class="final">Answer: 80</p>' },
+
+  { id:'A-PE-36', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A shop sells a clock for £96, making a 20% profit. What did the shop pay for it?',
+    hint:'£96 = 120% of the cost.',
+    accept:['80'],
+    model:'<ol><li>£96 = 120% of the cost.</li><li>1% = 96 ÷ 120 = £0.80, so 100% = £80.</li><li>Check: £80 + 20% (£16) = £96. ✓</li></ol><p class="final">Answer: £80</p>' },
+
+  { id:'A-PE-37', topic:'Percentages', level:'Advanced', type:'number',
+    question:'A town\'s population fell by 4% to 4,800 people. How many people lived there before?',
+    hint:'4,800 = 96% of the old population.',
+    accept:['5000','5,000'],
+    model:'<ol><li>4,800 = 96% of the old population.</li><li>1% = 4,800 ÷ 96 = 50, so 100% = 5,000.</li></ol><p class="final">Answer: 5,000 people</p>' },
+
+  { id:'A-PE-38', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A savings account grew by 10% one year, then by 10% the next year, reaching £242. How much was first put in?',
+    hint:'Two 10% rises means × 1.1 × 1.1 = × 1.21. Work backwards by dividing by 1.21.',
+    accept:['200'],
+    model:'<ol><li>Over two years the money is multiplied by 1.1 × 1.1 = 1.21.</li><li>Start = £242 ÷ 1.21 = £200.</li></ol><p class="final">Answer: £200</p>' },
+
+  { id:'A-PE-39', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A price is increased by 50% and the new price is £30. What was the original price?',
+    hint:'£30 = 150% of the original.',
+    accept:['20'],
+    model:'<ol><li>£30 = 150% of the original.</li><li>1% = 30 ÷ 150 = £0.20, so 100% = £20.</li></ol><p class="final">Answer: £20</p>' },
+
+  { id:'A-PE-40', topic:'Percentages', level:'Advanced', type:'money',
+    question:'After 8% interest is added for one year, a savings account holds £540. How much was deposited at the start?',
+    hint:'£540 = 108% of the deposit.',
+    accept:['500'],
+    model:'<ol><li>£540 = 108% of the deposit.</li><li>1% = 540 ÷ 108 = £5, so 100% = £500.</li></ol><p class="final">Answer: £500</p>' },
+
+  { id:'A-PE-41', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A shop marks up everything by 25% above cost. A shirt sells for £15. What did the shop pay for it?',
+    hint:'£15 = 125% of the cost.',
+    accept:['12'],
+    model:'<ol><li>£15 = 125% of the cost.</li><li>1% = 15 ÷ 125 = £0.12, so 100% = £12.</li></ol><p class="final">Answer: £12</p>' },
+
+  { id:'A-PE-42', topic:'Percentages', level:'Advanced', type:'money',
+    question:'A laptop is reduced by 15% and then a further 15% is taken off the new price. If the original price was £400, what is the final price?',
+    hint:'Do it in two steps — the second 15% comes off the already-reduced price, so use × 0.85 twice.',
+    accept:['289'],
+    partial:[{value:'280', note:'You took off 30% in one go. But two separate 15% reductions are × 0.85 × 0.85 = × 0.7225, not × 0.70.'}],
+    model:'<ol><li>First: £400 × 0.85 = £340.</li><li>Second: £340 × 0.85 = £289.</li></ol><p class="final">Answer: £289</p>' }
 
 ];
 
