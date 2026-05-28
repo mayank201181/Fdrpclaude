@@ -227,14 +227,20 @@
      PRACTICE
      ========================================================= */
   // practice view state (kept in module scope, not the URL, to stay simple)
-  let pFilter = { topic: 'All', level: 'All' };
+  let pFilter = { topic: 'All', level: 'All', show: 'All' };
   let pIndex = 0;
 
   function filteredQuestions() {
-    return QUESTIONS.filter(q =>
-      (pFilter.topic === 'All' || q.topic === pFilter.topic) &&
-      (pFilter.level === 'All' || q.level === pFilter.level)
-    );
+    return QUESTIONS.filter(q => {
+      if (pFilter.topic !== 'All' && q.topic !== pFilter.topic) return false;
+      if (pFilter.level !== 'All' && q.level !== pFilter.level) return false;
+      if (pFilter.show === 'Review') {
+        // only the ones she got wrong or partially right
+        return progress[q.id] === 'wrong' || progress[q.id] === 'partial';
+      }
+      if (pFilter.show === 'Unsolved') return progress[q.id] !== 'correct';
+      return true;
+    });
   }
 
   function renderPractice() {
@@ -257,6 +263,14 @@
             <label for="fLevel">Level</label>
             <select id="fLevel">${['All', ...LEVELS].map(l => opt(l, pFilter.level)).join('')}</select>
           </div>
+          <div class="filter-group">
+            <label for="fShow">Show</label>
+            <select id="fShow">
+              <option value="All" ${pFilter.show === 'All' ? 'selected' : ''}>All questions</option>
+              <option value="Review" ${pFilter.show === 'Review' ? 'selected' : ''}>Retry wrong ones</option>
+              <option value="Unsolved" ${pFilter.show === 'Unsolved' ? 'selected' : ''}>Not yet solved</option>
+            </select>
+          </div>
         </div>
       </div>
       <div id="qHolder"></div>
@@ -264,6 +278,7 @@
 
     document.getElementById('fTopic').addEventListener('change', e => { pFilter.topic = e.target.value; pIndex = 0; renderPractice(); });
     document.getElementById('fLevel').addEventListener('change', e => { pFilter.level = e.target.value; pIndex = 0; renderPractice(); });
+    document.getElementById('fShow').addEventListener('change', e => { pFilter.show = e.target.value; pIndex = 0; renderPractice(); });
 
     drawQuestion();
   }
@@ -285,7 +300,12 @@
     updateProgressLine(list);
 
     if (list.length === 0) {
-      holder.innerHTML = `<div class="empty">No questions match these filters yet.</div>`;
+      const msg = pFilter.show === 'Review'
+        ? 'Nothing to retry here — every question you\'ve tried in this set is correct! 🎉 Switch "Show" back to "All questions" for more practice.'
+        : pFilter.show === 'Unsolved'
+          ? 'All solved in this set — nice work! 🎉 Switch "Show" to "All questions" to revisit any.'
+          : 'No questions match these filters yet.';
+      holder.innerHTML = `<div class="empty">${msg}</div>`;
       return;
     }
     const q = list[pIndex];
